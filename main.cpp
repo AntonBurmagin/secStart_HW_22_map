@@ -18,6 +18,30 @@ bool isNumber (std::string str) {
     return true;
 }
 
+std::map<char, int> createMap(std::string str) {
+    std::map<char, int> result;
+    for (int i = 0; i < str.length(); i++) {
+        if(result.find(str[i]) != result.end()) {
+            result.find(str[i])->second++;
+        } else {
+            result[str[i]] = 0;
+        }
+    }
+    return result;
+}
+
+bool areAnagrams(std::string str1, std::string str2) {
+    std::map<char, int> map1 = createMap(str1);
+    std::map<char, int> map2 = createMap(str2);
+    std::map<char, int>::iterator it1 = map1.begin();
+    std::map<char, int>::iterator it2 = map2.begin();
+    for ( ; it1 != map1.end() && it2 != map2.end(); it1++, it2++) {
+        if(it1->first != it2->first || it1->second != it2->second || it1 == map1.end() || it2 == map2.end())
+            return false;
+    }
+    return true;
+}
+
 int main() {
     //22.6.1 phonebook
     /*
@@ -56,6 +80,7 @@ int main() {
     */
 
     //22.6.2 queue
+    /*
     std::map<std::string, int> queue;
     while (true) {
         std::string operation;
@@ -80,4 +105,19 @@ int main() {
             std::cout << "Unknown command" << std::endl;
         }
     }
+    */
+
+    //22.6.3 anagrams
+    std::string firstWord, secondWord;
+    while(true) {
+        std::cin >> firstWord >> secondWord;
+        if (areAnagrams(firstWord, secondWord))
+            std::cout << firstWord << " and " << secondWord << " are anagrams!" << std::endl;
+        else
+            std::cout << firstWord << " and " << secondWord << " are NOT anagrams!" << std::endl;
+    }
+    
+    
+
+
 }
