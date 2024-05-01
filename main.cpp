@@ -55,5 +55,29 @@ int main() {
     }
     */
 
-   
+    //22.6.2 queue
+    std::map<std::string, int> queue;
+    while (true) {
+        std::string operation;
+        std::cin >> operation;
+        if (operation == "next") {
+            std::map<std::string, int>::iterator it = queue.begin();
+            if (it != queue.end()) {
+                std::cout << it->first << std::endl;
+                it->second--;
+                if (it->second == 0)
+                    queue.erase(it);
+            } else {
+                std::cout << "There is no queue" << std::endl;
+            }
+        } else if (isSurname(operation)) {
+            if(queue.find(operation) != queue.end()) {
+                queue.find(operation)->second++;
+            } else {
+                queue[operation] = 1;
+            }
+        } else {
+            std::cout << "Unknown command" << std::endl;
+        }
+    }
 }
